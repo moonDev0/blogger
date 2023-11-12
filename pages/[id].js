@@ -4,9 +4,10 @@ import Head from 'next/head';
 import useAllPostStore from '@/store/allpoststore';
 import Navbar from '@/components/common/navbar';
 import Link from 'next/link';
+import { deletePost } from '@/utils/deletepost';
 
 const BlogPost = () => {
-  const { posts } = useAllPostStore();
+  const { posts, removePost } = useAllPostStore();
   const router = useRouter();
   
   const { id } = router.query;
@@ -14,6 +15,19 @@ const BlogPost = () => {
   if (!post) {
     return <div className='text-[40px]'>Post not found.</div>;
   }
+
+
+  const handleDelete = async () => {
+    try {
+      await deletePost(post.id);
+      // Assuming you have a removePost function in your store to update the state without making a new API request
+      removePost(post.id);
+      // Redirect to the home page or another appropriate page
+      router.push('/');
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
 
 
   return (
@@ -41,7 +55,7 @@ const BlogPost = () => {
 
         <div className='mt-10'>
             <button className='bg-red-500 py-1 px-2 rounded-md mr-10 text-white'>edit</button>
-            <button className='bg-red-500 py-1 px-2 rounded-md text-white'>delete</button>
+            <button onClick={handleDelete} className='bg-red-500 py-1 px-2 rounded-md text-white'>Delete</button>
         </div>
       </section>
      

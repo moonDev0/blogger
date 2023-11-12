@@ -1,16 +1,20 @@
 import useAllPostStore from '@/store/allpoststore'
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 
 const ViewAllposts = () => {
     const {posts} = useAllPostStore();
+    const [visiblePosts, setVisiblePosts] = useState(9); 
 
-    // const handleDelete
+    const loadMore = () => {
+      setVisiblePosts((prevVisiblePosts) => prevVisiblePosts + 9); 
+    };
+
   return (
     <div>
 
      <div className=' overf grid grid-cols-3 mt-20 gap-6 container mx-auto'>
-     {posts.slice(0,10  ).map((post) => (
+     {posts.slice(0, visiblePosts).map((post) => (
             <div data-aos="zoom-in" key={post.id} className='rounded-md shadow-lg my-10 hover:bg-[#dad7d7] bg-[#F5F5F5]'>
               
                 <i>
@@ -27,7 +31,9 @@ const ViewAllposts = () => {
             </div>
           ))}
    </div>
-
+        {visiblePosts < posts.length && (
+          <button className='text-white bg-blue-500 px-3 py-1 rounded-md' onClick={loadMore}>Load More</button>
+        )}
     </div>
   )
 }

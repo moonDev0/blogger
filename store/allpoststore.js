@@ -9,6 +9,7 @@ const useAllPostStore = create(
     devtools((set) => ({
       posts: [],
       savePosts: (posts) => set({ posts }),
+      removePost: (postId) => set((state) => ({ posts: state.posts.filter(post => post.id !== postId) })),
     })),
     {
       name: 'allpoststore',
