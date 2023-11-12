@@ -40,8 +40,8 @@ const BlogPost = () => {
          </div>
 
         <div className='mt-10'>
-            <button className='bg-red-500 py-1 px-2 rounded-md mr-10'>edit</button>
-            <button className='bg-red-500 py-1 px-2 rounded-md'>delete</button>
+            <button className='bg-red-500 py-1 px-2 rounded-md mr-10 text-white'>edit</button>
+            <button className='bg-red-500 py-1 px-2 rounded-md text-white'>delete</button>
         </div>
       </section>
      

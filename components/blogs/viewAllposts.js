@@ -22,7 +22,7 @@ const ViewAllposts = () => {
                   </div>
                 </i>
                 <div className='pb-5 w-full flex justify-between px-5'>
-                    <Link className='bg-blue-500 py-1 px-2 rounded-md' href={`/${post.id}`}>view more </Link>
+                    <Link className='bg-blue-500 py-1 px-2 rounded-md text-white' href={`/${post.id}`}>view more </Link>
                 </div>
             </div>
           ))}
