@@ -5,11 +5,16 @@ import { AddPost } from '@/utils/addpost';
 const Createpost = () => {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const postData = {
         title: postTitle,
         body: postBody,
@@ -18,7 +23,20 @@ const Createpost = () => {
 
       const responseData = await AddPost(postData);
 
+      setLoading(false);
+      setSuccessMessage('Post added successfully!');
+      setErrorMessage(''); // Reset error message if there was any
+
+      // Reset form inputs
+      setPostTitle('');
+      setPostBody('');
+
+      // Optionally, you can redirect the user or perform other actions after a successful post
+
     } catch (error) {
+      setLoading(false);
+      setSuccessMessage('');
+      setErrorMessage('Error adding post. Please try again.');
       console.error('Error:', error);
     }
   };
@@ -53,8 +71,13 @@ const Createpost = () => {
             ></textarea>
           </div>
           <div className='bg-white mt-5 w-[500px] rounded-sm'>
-            <button type="submit" className='px-2 py-1 text-center w-full'>Submit</button>
+            <button type="submit" className='px-2 py-1 text-center w-full'>
+              {loading ? 'Adding...' : 'Submit'}
+            </button>
           </div>
+
+          {successMessage && <p className="text-green-500">{successMessage}</p>}
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         </form>
       </div>
     </div>
