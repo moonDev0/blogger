@@ -5,8 +5,10 @@ import useSWR from 'swr'
 import Navbar from '@/components/common/navbar'
 import { fetchAllPost } from '@/utils/fetchAllPosts'
 import { useEffect } from 'react'
+import Link from 'next/link'
+import ViewAllposts from '@/components/blogs/viewAllposts'
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
   const {posts, savePosts} = useAllPostStore();
@@ -26,23 +28,18 @@ export default function Home() {
 
   
   return (
-    <main
-      className={` min-h-screen bg-next bg-contain bg-no-repeat flex-col items-center ${inter.className}`}
+    <div
+      className={` min-h-screen bg-next bg-cover bg-no-repeat flex-col items-center`}
     >
      <Navbar/>
 
-     <div className='grid grid-cols-3 mt-20 gap-6 container mx-auto'>
-     {posts.slice(0,5).map((post) => (
-       <div key={post.id} className=' shadow-xl mb-20 p-4 shadow-slate-700'>
-
-         <h2 className='text-[13px]'>{post.title}</h2>
-       
-       </div>
-     ))}
+     
+     <div className=' mt-20 gap-6 container mx-auto'>
+     <ViewAllposts/>
    </div>
 
      
 
-    </main>
+    </div>
   )
 }
