@@ -13,17 +13,30 @@ import ViewAllposts from '@/components/blogs/viewAllposts'
 export default function Home() {
   const {posts, savePosts} = useAllPostStore();
 
-  useEffect(() => {
+  // useEffect(() => {
   
-    fetchAllPost()
-      .then((data) => {
+  //   fetchAllPost()
+  //     .then((data) => {
        
-        savePosts(data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []); 
+  //       savePosts(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []); 
+
+  const {isLoading} = useSWR("fetchAllPost", () => fetchAllPost(), {
+    onSuccess: ({ data }) => {
+      savePosts(data.data);
+    },
+    onError: (err) => {
+      if (err?.response?.status === 401) {
+        console.log('error fetching')
+      }
+    },
+    shouldRetryOnError: false,
+    revalidateOnFocus: false,
+  });
 
 
   
@@ -35,7 +48,7 @@ export default function Home() {
 
      
      <div className=' mt-20 gap-6 container mx-auto'>
-     <ViewAllposts/>
+     <ViewAllposts isLoading={isLoading}/>
    </div>
 
      

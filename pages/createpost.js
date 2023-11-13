@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/common/navbar';
 import { AddPost } from '@/utils/addpost';
+import Spinner from '@/lib/spinner';
 
 const Createpost = () => {
   const [postTitle, setPostTitle] = useState('');
@@ -72,7 +73,7 @@ const Createpost = () => {
           </div>
           <div className='bg-white mt-5 w-[500px] rounded-sm'>
             <button type="submit" className='px-2 py-1 text-center w-full'>
-              {loading ? 'Adding...' : 'Submit'}
+              {loading ? <Spinner colour="blue" /> : 'Submit'}
             </button>
           </div>
 
