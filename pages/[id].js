@@ -27,9 +27,7 @@ const BlogPost = () => {
   const handleDelete = async () => {
     try {
       await deletePost(post.id);
-      // Assuming you have a removePost function in your store to update the state without making a new API request
       removePost(post.id);
-      // Redirect to the home page or another appropriate page
       router.push('/');
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -47,7 +45,7 @@ const BlogPost = () => {
     <Navbar/>
 
       
-      <section className='container mx-auto mt-20 px-10 md:px-0 mb-10 '>
+      <section className='container mx-auto pt-28 px-10 md:px-0 mb-10 '>
 
       {showComponentOne ? <EditPost id={post.id} title={post.title} body={post.body}/> : <div> <div>
         <Link href='/' >
